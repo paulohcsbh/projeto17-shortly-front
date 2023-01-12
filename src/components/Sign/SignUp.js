@@ -24,7 +24,7 @@ const SignUp = () => {
         setConfirmaSenha("");    
         e.preventDefault();
         const requisicao = axios.post("https://api-shortly-sql-i1rh.onrender.com/signUp", { name: nome, email: email, password: senha, confirmPassword: confirmaSenha })
-        requisicao.then(() => { alert("Cadastro realizado com sucesso!"); setDesabilitar(false)})
+        requisicao.then(() => { alert("Cadastro realizado com sucesso!"); setDesabilitar(false); navigate("/sign-in")})
         requisicao.catch(() => { alert("Erro! Email inválido!"); setDesabilitar(false) })
 
     }
