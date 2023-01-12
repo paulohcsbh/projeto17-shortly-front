@@ -6,8 +6,10 @@ import { useState, useEffect } from 'react';
 import RankingUrl from './RankingUrl';
 import { useNavigate, useLocation } from "react-router-dom";
 import NavBarLog from './NavBarLog';
+import {ThreeDots} from "react-loader-spinner"
 
-const Main = ({token}) => {    
+const Main = () => { 
+    const token = localStorage.getItem("token");   
     const [ranking, setRanking] = useState();
     const [estado, setEstado] = useState();
     const navigate = useNavigate();  
@@ -20,7 +22,20 @@ const Main = ({token}) => {
     }, [estado, ranking])
 
     if (ranking === undefined) {
-        return "Carregando..."
+        return (
+            <Loading>
+                <ThreeDots
+                    height="80"
+                    width="80"
+                    radius="9"
+                    color="#78B159"
+                    ariaLabel="three-dots-loading"
+                    wrapperStyle={{}}
+                    wrapperClassName=""
+                    visible={true}
+                />
+            </Loading>
+        ) 
     }
 
     return (
@@ -88,7 +103,6 @@ text-align: center;
 const RankingContainer = styled.div`
 display: flex;
 justify-content: center;
-overflow-y: scroll;
 `
 const Box = styled.div`
 width: 80vw;
@@ -96,6 +110,7 @@ height: 15em;
 border: 1px solid rgba(120, 177, 89, 0.25);
 background-color: #fff;
 border-radius: 1em 1em 0 0;
+overflow-y: scroll;
 `
 const Cadastro = styled.div`
 display: flex;
@@ -114,7 +129,12 @@ background-color: #e5e5e5;
    text-align: center;    
 }
 `
-
+const Loading = styled.div`
+height: 42em;
+display: flex;
+justify-content: center;
+align-items: center;
+`
 
 
 export default Main

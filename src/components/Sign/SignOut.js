@@ -10,7 +10,8 @@ const SignOut = ({token, setEstado}) => {
         promise.then((a) => {console.log(a);});
         promise.catch((err) => {console.log(err); alert("Alguma coisa deu errado!");});
         navigate("/")  
-        setEstado(Math.random())     
+        setEstado(Math.random());
+            
     }
   return (
     <>

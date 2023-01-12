@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { useState } from "react";
 
-const SignIn = ({setToken}) => {    
+const SignIn = () => {    
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
@@ -15,7 +15,7 @@ const SignIn = ({setToken}) => {
         setDesabilitar(true);        
         e.preventDefault();
         const requisicao = axios.post("https://api-shortly-sql-i1rh.onrender.com/signIn", { email: email, password: senha })
-        requisicao.then((a) => { navigate("/home"); console.log(a); setToken(a.data.token) });
+        requisicao.then((a) => { navigate("/home"); console.log(a); localStorage.setItem("token", a.data.token); console.log(a) });
         requisicao.catch(() => { alert("Email e/ou senha inválidos"); setDesabilitar(false) });        
     }
 

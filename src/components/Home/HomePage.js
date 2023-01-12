@@ -7,21 +7,36 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UrlShorten from './UrlShorten';
 import SignOut from '../Sign/SignOut';
+import {ThreeDots} from "react-loader-spinner";
 
-const HomePage = ({token}) => {
+const HomePage = () => {
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const [data, setData] = useState();
   const [estado, setEstado] = useState()
 
   useEffect(() => {
     const promise = axios.get("https://api-shortly-sql-i1rh.onrender.com/users/me", { headers: { "Authorization": `Bearer ${token}` }, })
-    promise.then((resposta) => { setData(resposta.data); })
+    promise.then((resposta) => { setData(resposta.data);  })
     promise.catch(erro => { console.log(erro.response.data) })
 
 }, [data, estado, token])
 
 if (data === undefined) {
-    return "Carregando..."
+    return (
+      <Loading>
+                <ThreeDots
+                    height="80"
+                    width="80"
+                    radius="9"
+                    color="#78B159"
+                    ariaLabel="three-dots-loading"
+                    wrapperStyle={{}}
+                    wrapperClassName=""
+                    visible={true}
+                />
+            </Loading>
+    )
 }
 
   return (
@@ -83,5 +98,12 @@ const ContainerUrls = styled.div`
 width: 100%;
 height: 1em;
 margin: 4em auto;
+`
+
+const Loading = styled.div`
+height: 42em;
+display: flex;
+justify-content: center;
+align-items: center;
 `
 export default HomePage
